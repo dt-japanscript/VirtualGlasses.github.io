@@ -69,7 +69,7 @@ const showInfo = (gObject) => {
     let divInfo = getELE('glassesInfo');
 
     divAvatar.innerHTML = `
-        <img src="${gObject.virtualImg}">
+        <img id="glasses" src="${gObject.virtualImg}">
     `;
 
     let status = "";
@@ -91,3 +91,20 @@ const showInfo = (gObject) => {
     `
     divInfo.style.display = "block";
 }
+
+/***
+ * Before : gỡ kính ra
+ * After : gán kính vào 
+ */
+
+const removeGlasses = (isDisplay) => {
+    let glasses = getELE("glasses");
+    if (glasses != null) {
+        if (isDisplay) {
+            glasses.style.display = "block";
+        } else {
+            glasses.style.display = "none";
+        }
+    }
+}
+window.removeGlasses = removeGlasses;
