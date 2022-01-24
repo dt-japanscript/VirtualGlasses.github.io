@@ -17,3 +17,34 @@ let dataGlasses = [
     { id: "G8", src: "./img/g8.jpg", virtualImg: "./img/v8.png", brand: "Polo", name: "NATTY ICE", color: "Red, Black", price: 120, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, unde enim." },
     { id: "G9", src: "./img/g9.jpg", virtualImg: "./img/v9.png", brand: "Coarch", name: "MIDNIGHT VIXEN REMIX", color: "Blue, Black", price: 120, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consequatur soluta ad aut laborum amet." }
 ];
+
+// Import các class vào main
+import { Glasses } from "./glasses.js";
+import { GlassesList } from "./glassesList.js";
+
+let glassesList = new GlassesList();
+
+// Hàm rút gọn cú pháp lấy elementbyID
+const getELE = (id) => {
+    return document.getElementById(id);
+}
+
+// Hàm hiển thị danh sách kính
+// Khai báo hàm
+const showGlassesList = () => {
+    let divGlassesList = getELE('vglassesList');
+
+    // Tạo đối tượng kính và thêm kính vào danh sách kính
+    // Duyẹt mảng data
+    dataGlasses.map((item, index) => {
+        let gl = new Glasses(item.id, item.src, item.virtualImg, item.brand, item.name, item.color, item.description)
+        glassesList.addGlasses(gl);
+    });
+
+    // console.log(glassesList.glist)
+    divGlassesList.innerHTML = glassesList.renderGlasses();
+}
+// Gọi hàm
+showGlassesList();
+
+
