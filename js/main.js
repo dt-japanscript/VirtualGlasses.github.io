@@ -37,7 +37,7 @@ const showGlassesList = () => {
     // Tạo đối tượng kính và thêm kính vào danh sách kính
     // Duyẹt mảng data
     dataGlasses.map((item, index) => {
-        let gl = new Glasses(item.id, item.src, item.virtualImg, item.brand, item.name, item.color, item.description)
+        let gl = new Glasses(item.id, item.src, item.virtualImg, item.brand, item.name, item.color, item.price, item.description)
         glassesList.addGlasses(gl);
     });
 
@@ -47,4 +47,47 @@ const showGlassesList = () => {
 // Gọi hàm
 showGlassesList();
 
+const tryOnGlasses = (e) => {
+    // console.log(e);
+    let gID = e.target.getAttribute("data-id");
+    let gObject = {};
+    // value là 1 đối tượng kính trong mảng
+    for (let value of glassesList.glist) {
+        if (value.id == gID) {
+            gObject = value;
+        }
+    }
+    // console.log(gObject)
+    // Gọi hàm thử kính 
+    showInfo(gObject);
+}
+window.tryOnGlasses = tryOnGlasses;
 
+// Khai báo hàm
+const showInfo = (gObject) => {
+    let divAvatar = getELE('avatar');
+    let divInfo = getELE('glassesInfo');
+
+    divAvatar.innerHTML = `
+        <img src="${gObject.virtualImg}">
+    `;
+
+    let status = "";
+    if (gObject.status) {
+        status = "Stocking";
+    } else {
+        status = "Sold Out";
+    }
+
+    divInfo.innerHTML = `
+        <h5>${gObject.name} - ${gObject.brand} - ${gObject.color}</h5>
+        <p class="card-text">
+            <span class="btn btn-danger btn-sm mr-2">$${gObject.price}</span>
+            <span class="text-success">${status}</span>
+        </p>
+        <p class="card-text">
+            ${gObject.desc}
+        </p>
+    `
+    divInfo.style.display = "block";
+}
